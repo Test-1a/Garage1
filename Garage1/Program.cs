@@ -8,7 +8,7 @@ namespace Garage1
         {
             GarageHandler GH = new GarageHandler();
             GH.CreateGarage("One", 250);
-            GH.CreateGarage("Two", 350);
+            //GH.CreateGarage("Two", 350);
             UI.run();
         }
     }

@@ -11,6 +11,7 @@ namespace Garage1
             {
                 ShowMenu();
                 string input = TryToReadInput();
+                List<string> parkAnswers = new List<string>();
 
                 switch (input)
                 {
@@ -18,7 +19,46 @@ namespace Garage1
                         return;
 
                     case "1":
-                        List<string> garageNames = GarageHandler.GetGarageNames();
+                        Console.WriteLine("what kind of vehicle do you want to park?");
+                        Console.WriteLine("'1':Car, '2': MC, '3':Bus, '4':Airplane, '5':Boat");
+                        string answer = Console.ReadLine();
+                        switch (answer)
+                        {
+                            case "1":
+                                parkAnswers.Add("Car");
+                                break;
+
+                            case "2":
+                                parkAnswers.Add("MC");
+                                    break;
+
+                            case "3":
+                                parkAnswers.Add("Bus");
+                                    break;
+
+                            case "4":
+                                parkAnswers.Add("Airplane");
+                                break;
+
+                            case "5":
+                                parkAnswers.Add("Boat");
+                                break;
+                                
+                            default:
+                                Console.WriteLine("Please choose something!");
+                                break;
+
+                        }
+
+                        List<string> parkQuestions = GarageHandler.GetParkQuestions(parkAnswers[0]);
+                        
+                        foreach (var q in parkQuestions)
+                        {
+                            Console.WriteLine(q);
+                            parkAnswers.Add(Console.ReadLine());
+
+                        }
+                        GarageHandler.ParkVehicle(parkAnswers);
                         break;
 
 
@@ -34,7 +74,8 @@ namespace Garage1
             Console.WriteLine("Hi and welcome to the GarageHandlers!");
             Console.WriteLine("What do you want to to?");
             Console.WriteLine("'0' to end this program");
-            Console.WriteLine("'1' to choose garage");
+            Console.WriteLine("'1' to park");
+            Console.WriteLine("'2' to unpark");
 
         }
 
