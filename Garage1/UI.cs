@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Garage1
 {
@@ -16,6 +17,10 @@ namespace Garage1
                     case "0":
                         return;
 
+                    case "1":
+                        List<string> garageNames = GarageHandler.GetGarageNames();
+                        break;
+
 
                     default:
                         break;
@@ -29,6 +34,7 @@ namespace Garage1
             Console.WriteLine("Hi and welcome to the GarageHandlers!");
             Console.WriteLine("What do you want to to?");
             Console.WriteLine("'0' to end this program");
+            Console.WriteLine("'1' to choose garage");
 
         }
 
