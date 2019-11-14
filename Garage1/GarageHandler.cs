@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Garage1
 {
-    internal class GarageHandler
+    internal  class GarageHandler
     {
         //private List<Garage<Vehicle>> garages;
         public static List<Garage<Vehicle>> Garages { get; set; }
