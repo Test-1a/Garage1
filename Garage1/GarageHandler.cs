@@ -72,7 +72,64 @@ namespace Garage1
             string numOfWheels = parkAnswers[3];
             string unique = parkAnswers[4];
 
-            Garages[0].createVehicle(vehicle, regNo, color, numOfWheels, unique);
+            //Garages[0].createVehicle(vehicle, regNo, color, numOfWheels, unique);
+            if (vehicle == "Car")
+            {
+                bool gickBra = CreateCar(regNo, color, numOfWheels, unique);
+                Console.WriteLine("GickBra: " + gickBra);
+            }
+        }
+
+        private static bool CreateCar(string regNo, string color, string numOfWheels, string unique)
+        {
+            Console.WriteLine("In createVehicle, vehicle = Car");
+            //Console.WriteLine("In CreateCar:");
+            //Console.WriteLine("RegNr: " + regNo);
+            //Console.WriteLine("Color: " + color);
+            //Console.WriteLine("Number of Wheels: " + numOfWheels);
+            //Console.WriteLine("Fueltype: "  + unique);
+            if (Garages[0].isFull) return false;
+            int num = int.Parse(numOfWheels);
+            Car c1 = new Car(regNo, color, num, unique);
+            Garages[0].AddCar(c1);
+
+            int antal = Garages[0].count;
+            ListParkedVehicles(antal);
+            return true;
+        }
+
+        private static void ListParkedVehicles(int antal)
+        {
+            Console.WriteLine("In ListParkedVehicles: ");
+
+            //foreach (var item in Garages[0].vehicles)
+            for (int i = 0; i < antal; i++)
+            {
+                //PropertyInfo[] v = item.GetType().GetProperties();
+                //for (int i = 0; i < v.Length; i++)
+                //{
+                //    // Console.WriteLine(v.GetValue());
+                //    Console.WriteLine(item.RegNr);
+                //    Console.WriteLine(item.Color);
+                //    Console.WriteLine(item.NumberOfWheels);
+                //}
+
+                Vehicle item = Garages[0].GetVehicle(i);
+
+                if (item is Car castItem)
+                {
+                    Console.WriteLine("It Is a CAR!!");
+                    Console.WriteLine($"RegNr: {castItem.RegNr}");
+                    Console.WriteLine($"Color: {castItem.Color}");
+                    Console.WriteLine($"Antal hjul: {castItem.NumberOfWheels}");
+                    Console.WriteLine($"Fueltype: {castItem.Fueltype}");
+                }
+                else break;
+
+
+
+                //Console.WriteLine("Vehical: " + );
+            }
         }
 
         public void PrintGarages()

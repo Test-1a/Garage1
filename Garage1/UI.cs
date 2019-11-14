@@ -5,7 +5,7 @@ namespace Garage1
 {
     internal static class UI
     {
-        private static GarageHandler GH/* = new GarageHandler()*/; 
+       // private static GarageHandler GH/* = new GarageHandler()*/; 
 
         public static void run()
         {
@@ -21,6 +21,9 @@ namespace Garage1
                         return;
 
                     case "1":
+                        break;
+
+                    case "2":
                         Console.WriteLine("what kind of vehicle do you want to park?");
                         Console.WriteLine("'1':Car, '2': MC, '3':Bus, '4':Airplane, '5':Boat");
                         string answer = Console.ReadLine();
@@ -54,7 +57,6 @@ namespace Garage1
 
                         List<string> parkQuestions = GarageHandler.GetParkQuestions(parkAnswers[0]);
 
-
                         foreach (var q in parkQuestions)
                         {
                             Console.WriteLine(q);
@@ -77,8 +79,10 @@ namespace Garage1
             Console.WriteLine("Hi and welcome to the GarageHandlers!");
             Console.WriteLine("What do you want to to?");
             Console.WriteLine("'0' to end this program");
-            Console.WriteLine("'1' to park");
-            Console.WriteLine("'2' to unpark");
+            Console.WriteLine("'1' to create a Garege");
+            Console.WriteLine("'2' to park");
+            Console.WriteLine("'3' to unpark");
+
 
         }
 
