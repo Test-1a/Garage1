@@ -21,6 +21,7 @@ namespace Garage1
                         return;
 
                     case "1":
+                        //Create a garage
                         break;
 
                     case "2":
@@ -66,6 +67,21 @@ namespace Garage1
                         GarageHandler.ParkVehicle(parkAnswers);
                         break;
 
+                    case "3":
+                        //Unpark a vehicle
+                        break;
+
+                    case "4":
+                        GarageHandler.ListAllParkedVehicles();
+                        break;
+
+                    case "5":
+                        GarageHandler.ListAllParkedVehiclesAndEachKind();
+                        break;
+
+                    case "6":
+                        //List a specific vehicle based on its regNr
+
 
                     default:
                         break;
@@ -82,6 +98,10 @@ namespace Garage1
             Console.WriteLine("'1' to create a Garege");
             Console.WriteLine("'2' to park");
             Console.WriteLine("'3' to unpark");
+            Console.WriteLine("'4' to list all parked vehicles");
+            Console.WriteLine("'5' to list all parked vehicles and how manu of each kind");
+            Console.WriteLine("'6' to list a specific vehicle based on its regNr");
+
 
 
         }

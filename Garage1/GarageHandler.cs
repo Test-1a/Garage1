@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Garage1
 {
@@ -67,7 +68,7 @@ namespace Garage1
         {
             Console.WriteLine( "In ParkVehicle!");
             string vehicle = parkAnswers[0];
-            string regNo = parkAnswers[1];
+            string regNo = parkAnswers[1].ToUpper();
             string color = parkAnswers[2];
             string numOfWheels = parkAnswers[3];
             string unique = parkAnswers[4];
@@ -93,14 +94,17 @@ namespace Garage1
             Car c1 = new Car(regNo, color, num, unique);
             Garages[0].AddCar(c1);
 
-            int antal = Garages[0].count;
-            ListParkedVehicles(antal);
+            //int antal = Garages[0].count;
+            //ListAllParkedVehicles(antal);
+            ListAllParkedVehicles();
             return true;
         }
 
-        private static void ListParkedVehicles(int antal)
+        public static void ListAllParkedVehicles()
         {
-            Console.WriteLine("In ListParkedVehicles: ");
+            Console.WriteLine("In ListAllParkedVehicles: ");
+
+            int antal = Garages[0].count;
 
             //foreach (var item in Garages[0].vehicles)
             for (int i = 0; i < antal; i++)
@@ -138,6 +142,30 @@ namespace Garage1
             {
                 System.Console.WriteLine($"Garage: {item.Name}");
             }
+        }
+
+        public static void ListAllParkedVehiclesAndEachKind()
+        {
+            ListAllParkedVehicles();
+
+            //fungerar
+            //foreach (var vehicle in Garages[0])
+            //{
+            //    Console.WriteLine(vehicle);
+            //}
+
+            Console.WriteLine("Before LiNQ");
+            string ss = "Red";
+            string sss = "v.Color";
+            //var vehicleQuery =  Garages[0].Where(v => v.Color == "Red");
+            var vehicleQuery = Garages[0].Where(v => v.Color == ss);
+            //var vehicleQuery = Garages[0].Where(v => sss == ss);      //Funkar inte
+
+            foreach (var item in vehicleQuery)
+            {
+                Console.WriteLine(item.RegNr);
+            }
+            Console.WriteLine("After LiNQ");
         }
     }
 }

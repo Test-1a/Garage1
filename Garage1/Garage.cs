@@ -2,13 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Linq;
 
 namespace Garage1
 {
     internal class Garage<T> : IEnumerable<T> where T : Vehicle
     {
         private Vehicle[] vehicles;
-        private int maxCapacity;
+        public int maxCapacity;
         public string Name { get; set; }
         //public int Count => vehicles.Length;
         public int count;
@@ -24,9 +25,16 @@ namespace Garage1
 
         public IEnumerator<T> GetEnumerator()
         {
+            //iterates the WHOLE array, NOT only over the created cars!!!!!!!!
+            //so if 3 cars are parked, item will be null on the fourth cycle
             foreach (T item in vehicles)
             {
-                yield return item;
+                if (item != null)
+                {
+                    yield return item;
+                }
+                
+                
             }
         }
 
@@ -75,6 +83,13 @@ namespace Garage1
         internal Vehicle GetVehicle(int i)
         {
             return vehicles[i];
+        }
+
+        internal IEnumerable AskArray()
+        {
+            string s = "Red";
+            var Q = vehicles.Where(v => v.Color.Equals(s));
+            return Q;
         }
     }
 }
