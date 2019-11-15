@@ -129,11 +129,7 @@ namespace Garage1
         private static bool CreateCar(string regNo, string color, string numOfWheels, string unique)
         {
             Console.WriteLine("In createVehicle, vehicle = Car");
-            //Console.WriteLine("In CreateCar:");
-            //Console.WriteLine("RegNr: " + regNo);
-            //Console.WriteLine("Color: " + color);
-            //Console.WriteLine("Number of Wheels: " + numOfWheels);
-            //Console.WriteLine("Fueltype: "  + unique);
+            
             if (Garages[0].isFull) return false;
             int num = int.Parse(numOfWheels);
             Car c1 = new Car(regNo, color, num, unique);
@@ -253,9 +249,17 @@ namespace Garage1
         }
         internal static void UnParkVehicle(string input2)
         {
-            //// Garages[0].RemoveVehicle(input2);
-            //string input2Upper = input2.ToUpper();
+            //FirstOrDefault stops after first HIT and returns ONE vehicle
+            //Where iterates over all of them and returns a list of vehicles
+            string input2Upper = input2.ToUpper();
+            var vehicleQuery = Garages[0].FirstOrDefault(v => v.RegNr == input2.ToUpper());
+           
             //Garages[0] = Garages[0].Where(v => v.RegNr != input2Upper).ToArray();
+
+            //int removeIndex = Array.IndexOf(Garages[0], vehicleQuery);
+
+            //skickar enbart 1 vehicle
+            Garages[0].RemoveVehicle(vehicleQuery);
         }
     }
 }

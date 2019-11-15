@@ -92,9 +92,20 @@ namespace Garage1
             return Q;
         }
 
-        internal void RemoveVehicle(string input2)
+        //internal void RemoveVehicle(IEnumerable<Vehicle> v)
+        internal void RemoveVehicle(Vehicle v)
         {
+            Console.WriteLine("In RemoveVehicle!");
+            
+            int removeIndex = Array.IndexOf(vehicles, v);
+            Console.WriteLine("Index = " + removeIndex);
+            vehicles[removeIndex] = null;
+            count = count -1;
 
+            for (int i = removeIndex; i < count; i++)
+            {
+                vehicles[i] = vehicles[i + 1];
+            }
         }
     }
 }

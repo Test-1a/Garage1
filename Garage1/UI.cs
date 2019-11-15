@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Garage1
 {
@@ -25,6 +26,7 @@ namespace Garage1
                         break;
 
                     case "2":
+                        //Park a vehicle
                         Console.WriteLine("what kind of vehicle do you want to park?");
                         Console.WriteLine("'1':Car, '2': MC, '3':Bus, '4':Airplane, '5':Boat");
                         string answer = Console.ReadLine();
@@ -75,6 +77,7 @@ namespace Garage1
                         break;
 
                     case "4":
+                        //print all parked vehicles
                         GarageHandler.ListAllParkedVehicles();
                         break;
 
@@ -85,10 +88,16 @@ namespace Garage1
                     case "6":
                         //List a specific vehicle based on its regNr
                         Console.WriteLine("What is the Reg Nr?");
-                        string input3 = Console.ReadLine();
+                        string input3 = Console.ReadLine().ToUpper();
                          IEnumerable<Vehicle> ie = GarageHandler.FindVehicleBasedOnRegNr(input3);
                         foreach (var item in ie)
                         {
+                            PropertyInfo[] props = item.GetType().GetProperties();
+                            foreach (var prop in props)
+                            {
+                                Console.WriteLine($"{prop.Name}: {prop.GetValue(item)}");
+
+                            }
                             Console.WriteLine();
                         }
                         break;
