@@ -69,6 +69,9 @@ namespace Garage1
 
                     case "3":
                         //Unpark a vehicle
+                        Console.WriteLine("What is the RegNr on the vehicle that you want to unpark?");
+                        string input2 = Console.ReadLine();
+                        GarageHandler.UnParkVehicle(input2);
                         break;
 
                     case "4":
@@ -81,7 +84,14 @@ namespace Garage1
 
                     case "6":
                         //List a specific vehicle based on its regNr
-
+                        Console.WriteLine("What is the Reg Nr?");
+                        string input3 = Console.ReadLine();
+                         IEnumerable<Vehicle> ie = GarageHandler.FindVehicleBasedOnRegNr(input3);
+                        foreach (var item in ie)
+                        {
+                            Console.WriteLine();
+                        }
+                        break;
 
                     default:
                         break;

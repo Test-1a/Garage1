@@ -73,10 +73,10 @@ namespace Garage1
         //    }
         //}
 
-        internal void AddCar(Car c1)
+        internal void AddVehicle(Vehicle v1)
         {
-            Console.WriteLine("In AddCar!");
-            vehicles[count] = c1;
+            Console.WriteLine("In AddVehicle!");
+            vehicles[count] = v1;
             count++;
         }
 
@@ -90,6 +90,11 @@ namespace Garage1
             string s = "Red";
             var Q = vehicles.Where(v => v.Color.Equals(s));
             return Q;
+        }
+
+        internal void RemoveVehicle(string input2)
+        {
+
         }
     }
 }

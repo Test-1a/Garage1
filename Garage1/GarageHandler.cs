@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace Garage1
 {
-    internal  class GarageHandler
+    internal class GarageHandler
     {
         //private List<Garage<Vehicle>> garages;
         public static List<Garage<Vehicle>> Garages { get; set; }
-        
+
         public GarageHandler()
         {
             Garages = new List<Garage<Vehicle>>();
@@ -24,52 +24,24 @@ namespace Garage1
         internal static List<string> GetParkQuestions(string veh)
         {
             List<string> lista = new List<string>();
-            if (veh == "Car") lista = GetCarParkQuestions();
-            else if (veh == "MC") lista = GetMcParkQuestions();
-            else if (veh == "Bus") lista = GetBusParkQuestions();
-            else if (veh == "Airplane") lista = GetAirParkQuestions();
-            else if (veh == "Boat") lista = GetBoatParkQuestions();
+            lista.Add("What registration number does the vehicle have?");
+            lista.Add("What color does the vehicle have?");
+            lista.Add("What number of wheels does the vehicle have");
+            if (veh == "Car") lista.Add("What fueltype do you use?");
+            else if (veh == "MC") lista.Add("What cylinder volume do you have?");
+            else if (veh == "Bus") lista.Add("How many seats do you have?");
+            else if (veh == "Airplane") lista.Add("How many engines do you have?");
+            else if (veh == "Boat") lista.Add("How long is your boat?");
 
             return lista;
         }
-
-        private static List<string> GetBoatParkQuestions()
-        {
-            throw new NotImplementedException();
-        }
-
-        private static List<string> GetAirParkQuestions()
-        {
-            throw new NotImplementedException();
-        }
-
-        private static List<string> GetBusParkQuestions()
-        {
-            throw new NotImplementedException();
-        }
-
-        private static List<string> GetMcParkQuestions()
-        {
-            throw new NotImplementedException();
-        }
-
-        private static List<string> GetCarParkQuestions()
-        {
-            List<string> LS = new List<string>();
-            LS.Add("What registration number does the vehicle have?");
-            LS.Add("What color does the vehicle have?");
-            LS.Add("What number of wheels does the vehicle have");
-            LS.Add("What fueltype do you use?");
-
-            return LS;
-        }
-
+       
         internal static void ParkVehicle(List<string> parkAnswers)
         {
-            Console.WriteLine( "In ParkVehicle!");
+            Console.WriteLine("In ParkVehicle!");
             string vehicle = parkAnswers[0];
             string regNo = parkAnswers[1].ToUpper();
-            string color = parkAnswers[2];
+            string color = parkAnswers[2].ToUpper();
             string numOfWheels = parkAnswers[3];
             string unique = parkAnswers[4];
 
@@ -79,6 +51,79 @@ namespace Garage1
                 bool gickBra = CreateCar(regNo, color, numOfWheels, unique);
                 Console.WriteLine("GickBra: " + gickBra);
             }
+            else if(vehicle == "MC")
+            {
+                bool gickBra = CreateMC(regNo, color, numOfWheels, unique);
+                Console.WriteLine("GickBra: " + gickBra);
+            }
+            else if(vehicle == "Bus")
+            {
+                bool gickBra = CreateBus(regNo, color, numOfWheels, unique);
+                Console.WriteLine("GickBra: " + gickBra);
+            }
+            else if (vehicle == "Airplane")
+            {
+                bool gickBra = CreateAirplane(regNo, color, numOfWheels, unique);
+                Console.WriteLine("GickBra: " + gickBra);
+            }
+            else if (vehicle == "Boat")
+            {
+                bool gickBra = CreateBoat(regNo, color, numOfWheels, unique);
+                Console.WriteLine("GickBra: " + gickBra);
+            }
+        }
+
+        private static bool CreateBoat(string regNo, string color, string numOfWheels, string unique)
+        {
+            Console.WriteLine("In createVehicle, vehicle = Boat");
+
+            if (Garages[0].isFull) return false;
+            int num = int.Parse(numOfWheels);
+            Boat boat1 = new Boat(regNo, color, num, unique);
+            Garages[0].AddVehicle(boat1);
+
+            ListAllParkedVehicles();
+            return true;
+        }
+
+        
+        private static bool CreateAirplane(string regNo, string color, string numOfWheels, string unique)
+        {
+            Console.WriteLine("In createVehicle, vehicle = Airplane");
+
+            if (Garages[0].isFull) return false;
+            int num = int.Parse(numOfWheels);
+            Airplane a1 = new Airplane(regNo, color, num, unique);
+            Garages[0].AddVehicle(a1);
+
+            ListAllParkedVehicles();
+            return true;
+        }
+
+        private static bool CreateBus(string regNo, string color, string numOfWheels, string unique)
+        {
+            Console.WriteLine("In createVehicle, vehicle = Bus");
+
+            if (Garages[0].isFull) return false;
+            int num = int.Parse(numOfWheels);
+            Bus b1 = new Bus(regNo, color, num, unique);
+            Garages[0].AddVehicle(b1);
+
+            ListAllParkedVehicles();
+            return true;
+        }
+
+        private static bool CreateMC(string regNo, string color, string numOfWheels, string unique)
+        {
+            Console.WriteLine("In createVehicle, vehicle = MC");
+
+            if (Garages[0].isFull) return false;
+            int num = int.Parse(numOfWheels);
+            MC mc1 = new MC(regNo, color, num, unique);
+            Garages[0].AddVehicle(mc1);
+
+            ListAllParkedVehicles();
+            return true;
         }
 
         private static bool CreateCar(string regNo, string color, string numOfWheels, string unique)
@@ -92,7 +137,7 @@ namespace Garage1
             if (Garages[0].isFull) return false;
             int num = int.Parse(numOfWheels);
             Car c1 = new Car(regNo, color, num, unique);
-            Garages[0].AddCar(c1);
+            Garages[0].AddVehicle(c1);
 
             //int antal = Garages[0].count;
             //ListAllParkedVehicles(antal);
@@ -128,6 +173,38 @@ namespace Garage1
                     Console.WriteLine($"Antal hjul: {castItem.NumberOfWheels}");
                     Console.WriteLine($"Fueltype: {castItem.Fueltype}");
                 }
+                else if(item is MC castItem2)
+                {
+                    Console.WriteLine("It Is a MC!!");
+                    Console.WriteLine($"RegNr: {castItem2.RegNr}");
+                    Console.WriteLine($"Color: {castItem2.Color}");
+                    Console.WriteLine($"Antal hjul: {castItem2.NumberOfWheels}");
+                    Console.WriteLine($"Cylinder Volume: {castItem2.cylinderVolume}");
+                }
+                else if (item is Bus castItem3)
+                {
+                    Console.WriteLine("It Is a Bus!!");
+                    Console.WriteLine($"RegNr: {castItem3.RegNr}");
+                    Console.WriteLine($"Color: {castItem3.Color}");
+                    Console.WriteLine($"Antal hjul: {castItem3.NumberOfWheels}");
+                    Console.WriteLine($"Number of seats: {castItem3.numberOfSeats}");
+                }
+                else if (item is Airplane castItem4)
+                {
+                    Console.WriteLine("It Is an Airplane!!");
+                    Console.WriteLine($"RegNr: {castItem4.RegNr}");
+                    Console.WriteLine($"Color: {castItem4.Color}");
+                    Console.WriteLine($"Antal hjul: {castItem4.NumberOfWheels}");
+                    Console.WriteLine($"Number of engines: {castItem4.numberOfEngines}");
+                }
+                else if (item is Boat castItem5)
+                {
+                    Console.WriteLine("It Is a Boat!!");
+                    Console.WriteLine($"RegNr: {castItem5.RegNr}");
+                    Console.WriteLine($"Color: {castItem5.Color}");
+                    Console.WriteLine($"Antal hjul: {castItem5.NumberOfWheels}");
+                    Console.WriteLine($"Length: {castItem5.length}");
+                }
                 else break;
 
 
@@ -155,9 +232,9 @@ namespace Garage1
             //}
 
             Console.WriteLine("Before LiNQ");
-            string ss = "Red";
+            string ss = "RED";
             string sss = "v.Color";
-            //var vehicleQuery =  Garages[0].Where(v => v.Color == "Red");
+            //var vehicleQuery =  Garages[0].Where(v => v.Color == "RED");
             var vehicleQuery = Garages[0].Where(v => v.Color == ss);
             //var vehicleQuery = Garages[0].Where(v => sss == ss);      //Funkar inte
 
@@ -166,6 +243,19 @@ namespace Garage1
                 Console.WriteLine(item.RegNr);
             }
             Console.WriteLine("After LiNQ");
+        }
+
+        internal static IEnumerable<Vehicle> FindVehicleBasedOnRegNr(string input3)
+        {
+            var vehicleQuery = Garages[0].Where(v => v.RegNr == input3);
+
+            return vehicleQuery;
+        }
+        internal static void UnParkVehicle(string input2)
+        {
+            //// Garages[0].RemoveVehicle(input2);
+            //string input2Upper = input2.ToUpper();
+            //Garages[0] = Garages[0].Where(v => v.RegNr != input2Upper).ToArray();
         }
     }
 }
