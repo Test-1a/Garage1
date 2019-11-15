@@ -9,17 +9,17 @@ namespace Garage1
     internal class Garage<T> : IEnumerable<T> where T : Vehicle
     {
         private Vehicle[] vehicles;
-        public int maxCapacity;
+        public int MaxCapacity { get; set; }
         public string Name { get; set; }
         //public int Count => vehicles.Length;
         public int count;
-        public bool isFull => count >= maxCapacity;
+        public bool isFull => count >= MaxCapacity;
 
         public Garage(string name, int v)
         {
             Name = name;
             vehicles = new Vehicle[v];
-            maxCapacity = v;
+            MaxCapacity = v;
             count = 0;
         }
 

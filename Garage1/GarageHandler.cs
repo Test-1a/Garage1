@@ -14,11 +14,13 @@ namespace Garage1
             Garages = new List<Garage<Vehicle>>();
         }
 
-        public void CreateGarage(string name, int capacity)
+        public static void CreateGarage(string name, int capacity)
         {
             Garage<Vehicle> garra = new Garage<Vehicle>(name, capacity);
             Garages.Add(garra);
-
+            
+            PrintGarages();
+            
         }
 
         internal static List<string> GetParkQuestions(string veh)
@@ -35,6 +37,7 @@ namespace Garage1
 
             return lista;
         }
+
        
         internal static void ParkVehicle(List<string> parkAnswers)
         {
@@ -126,6 +129,7 @@ namespace Garage1
             return true;
         }
 
+
         private static bool CreateCar(string regNo, string color, string numOfWheels, string unique)
         {
             Console.WriteLine("In createVehicle, vehicle = Car");
@@ -209,7 +213,26 @@ namespace Garage1
             }
         }
 
-        public void PrintGarages()
+        internal static string ChangeMaximumCapacity(int v)
+        {
+            string answerString = "";
+
+            if(v < Garages[0].count)
+            {
+                Garages[0].MaxCapacity = Garages[0].count;
+                answerString = "New value is smaller than number of cars in the garage, new value is set to the number of cars in the garage";
+
+            }
+            else
+            {
+                Garages[0].MaxCapacity = v;
+                answerString = "Maximum capacity set to suggested value";
+            }
+
+            return answerString;
+        }
+
+        public static void PrintGarages()
         {
             foreach (var item in Garages)
             {
@@ -227,18 +250,39 @@ namespace Garage1
             //    Console.WriteLine(vehicle);
             //}
 
-            Console.WriteLine("Before LiNQ");
-            string ss = "RED";
-            string sss = "v.Color";
-            //var vehicleQuery =  Garages[0].Where(v => v.Color == "RED");
-            var vehicleQuery = Garages[0].Where(v => v.Color == ss);
-            //var vehicleQuery = Garages[0].Where(v => sss == ss);      //Funkar inte
+            //Console.WriteLine("Before LiNQ");
+            //string ss = "RED";
+            //string sss = "v.Color";
+            ////var vehicleQuery =  Garages[0].Where(v => v.Color == "RED");
+            //var vehicleQuery = Garages[0].Where(v => v.Color == ss);
+            ////var vehicleQuery = Garages[0].Where(v => sss == ss);      //Funkar inte
 
-            foreach (var item in vehicleQuery)
+            //foreach (var item in vehicleQuery)
+            //{
+            //    Console.WriteLine(item.RegNr);
+            //}
+            //Console.WriteLine("After LiNQ");
+
+            //foreach (var item in Garages[0])
+            //{
+            //    int cCar = 0, cMC = 0, cBus = 0, cAirplane = 0, cBoat = 0;
+            //    if (item is Car) cCar++;
+            //    else if (item is MC) cMC++;
+            //    else if (item is Bus) cBus++;
+            //}
+
+            var vehiclesPerType = from vehicle in Garages[0]
+                                  group vehicle by vehicle.GetType().Name into vehicleGroup
+                                  select new 
+                                  {
+                                      Type = vehicleGroup.Key,
+                                      Count = vehicleGroup.Count(),
+                                  };
+
+            foreach (var item in vehiclesPerType)
             {
-                Console.WriteLine(item.RegNr);
+                Console.WriteLine(item);
             }
-            Console.WriteLine("After LiNQ");
         }
 
         internal static IEnumerable<Vehicle> FindVehicleBasedOnRegNr(string input3)
@@ -260,6 +304,27 @@ namespace Garage1
 
             //skickar enbart 1 vehicle
             Garages[0].RemoveVehicle(vehicleQuery);
+        }
+
+
+        internal static IEnumerable<Vehicle> FindVehicle(string v, string input41, string input42)
+        {
+            if (v == "Color")
+            {
+                var vehicleQuery = Garages[0].Where(v => v.Color == input41.ToUpper());
+                return vehicleQuery;
+            }
+            else if (v == "Wheels")
+            {
+                var vehicleQuery = Garages[0].Where(v => v.NumberOfWheels == int.Parse(input41));
+                return vehicleQuery;
+            }
+            else if (v == "Both")
+            {
+                var vehicleQuery = Garages[0].Where(v => v.Color == input41.ToUpper() && v.NumberOfWheels == int.Parse(input42));
+                return vehicleQuery;
+            }
+            else return null;
         }
     }
 }
